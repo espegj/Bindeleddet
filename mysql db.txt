@@ -1,0 +1,47 @@
+﻿create database db;
+use db;
+
+CREATE TABLE linje
+(
+linjeId int NOT NULL AUTO_INCREMENT,
+navn varchar(45),
+primary key(linjeId)
+);
+
+CREATE TABLE trinn
+(
+trinnId int NOT NULL AUTO_INCREMENT,
+trinn varchar(45),
+primary key(trinnId)
+);
+
+CREATE TABLE stillingstype
+(
+typeId int NOT NULL AUTO_INCREMENT,
+stilling varchar(45),
+primary key(typeId)
+);
+
+CREATE TABLE annonse
+(
+annonseId int NOT NULL AUTO_INCREMENT,
+info text,
+typeId int,
+varighet varchar(45),
+linjeId int,
+trinnId int,
+url text,
+kontaktNavn varchar(45),
+kontaktEmail varchar(255),
+frist date,
+teller int,
+prioritet bit,
+sted varchar(45),
+bedriftsNavn varchar(45),
+tittel varchar(45),
+primary key(annonseId, typeId, linjeId, trinnId),
+FOREIGN KEY (typeId) REFERENCES stillingstype(typeId),
+FOREIGN KEY (linjeId) REFERENCES linje(linjeId),
+FOREIGN KEY (trinnId) REFERENCES trinn(trinnId)
+);
+
