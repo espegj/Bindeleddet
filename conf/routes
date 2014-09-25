@@ -4,9 +4,12 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+GET     /add	             		controllers.Application.addAdvertisement()
+
 
 #Security
 GET     /login                		controllers.Application.login()
+
 
 
 

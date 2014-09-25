@@ -30,6 +30,12 @@ public class Application extends Controller {
 		return ok(login.render("Log inn"));
 	}
 	
+	public static Result addAdvertisement() {
+		return ok(addAdvertisement.render("Log inn"));
+	}
+	
+
+	
 	
 
 }
