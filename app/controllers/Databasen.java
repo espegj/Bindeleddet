@@ -15,10 +15,10 @@ public class Databasen {
 
 	public void insert(String table, String info, Integer typeId, Integer varighet,
 			Integer linjeId, Integer trinnId, String url, String kontaktNavn, String kontaktEmail,
-			String frist, Integer prioritet, String sted, String bedriftsNavn, String tittel) {
-		SqlUpdate insert = Ebean.createSqlUpdate("insert into " + table + " values(null,\"" + info + "\",\"" + typeId + "\", \"" + varighet + "\",\"" + linjeId
+			String frist, String prioritet, String sted, String bedriftsNavn, String tittel) {
+			SqlUpdate insert = Ebean.createSqlUpdate("insert into " + table + " values(null,\"" + info + "\",\"" + typeId + "\", \"" + varighet + "\",\"" + linjeId
 				+ "\",\"" + trinnId + "\",\"" + url + "\",\"" + kontaktNavn + "\",\""
-				+ kontaktEmail + "\",\"" + frist + "\",\"0\",\"" + Integer.toBinaryString(prioritet) + "\",\"" + sted
+				+ kontaktEmail + "\",\"" + frist + "\",\"0\"," + prioritet + ",\"" + sted
 				+ "\",\"" + bedriftsNavn + "\",\"" + tittel + "\")");
 		insert.execute();
 	}

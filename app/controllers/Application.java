@@ -61,20 +61,27 @@ public class Application extends Controller {
 		for(String i : input){
 			if(dynamicForm.get(i) == null || dynamicForm.get(i) == ""){
 				if(i=="prioritet"){
-				inputValue.add("0");
+				inputValue.add("false");
 				}
+				else{
 				inputValue.add("");
+				}
 			}
 		
 			else{
+				if(i=="prioritet"){
+					inputValue.add("true");
+					}
+					else{
 				inputValue.add(dynamicForm.get(i));	
+					}
 			}
 		}
 
 		Databasen db = new Databasen();
 		db.insert("annonse", inputValue.get(0), Integer.parseInt(inputValue.get(1)), Integer.parseInt(inputValue.get(2)),
 				Integer.parseInt(inputValue.get(3)), Integer.parseInt(inputValue.get(4)), inputValue.get(5), inputValue.get(6), 
-				inputValue.get(7), inputValue.get(8), Integer.parseInt(inputValue.get(9)), inputValue.get(10), inputValue.get(11), 
+				inputValue.get(7), inputValue.get(8), inputValue.get(9), inputValue.get(10), inputValue.get(11), 
 				inputValue.get(12));
 		
 		
