@@ -38,7 +38,6 @@ public class Application extends Controller {
 		String sql = "Select * from annonse";
 		List<SqlRow> sqlRows = Ebean.createSqlQuery(sql).findList();
 		String t = toJson(sqlRows);
-		System.out.println(t);
 		return ok(index.render("Bindeleddet"));
 	}
 
@@ -70,7 +69,6 @@ public class Application extends Controller {
 			int d = 0;			
 			int count=0;
 			int date = tmp.indexOf("frist=");
-			System.out.println(date);
 			for (char ch : tmp.toCharArray()) {
 				String s = String.valueOf(ch);
 				count++;
