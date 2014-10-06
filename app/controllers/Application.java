@@ -35,9 +35,6 @@ import views.html.*;
 public class Application extends Controller {
 
 	public static Result index() {
-		String sql = "Select * from annonse";
-		List<SqlRow> sqlRows = Ebean.createSqlQuery(sql).findList();
-		String t = toJson(sqlRows);
 		return ok(index.render("Bindeleddet"));
 	}
 
@@ -45,7 +42,9 @@ public class Application extends Controller {
 		return ok(login.render("Log inn"));
 	}
 
-	public static String toJson(List list) {
+	public static String annonseJson() {
+		String sql = "Select * from annonse";
+		List<SqlRow> list = Ebean.createSqlQuery(sql).findList();
 		String json = "";
 		String tmp = "";
 		String test = "";
