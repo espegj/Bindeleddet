@@ -194,29 +194,9 @@ public class Application extends Controller {
 	
 	@Transactional
 	public static Result angular() throws IOException {
-		String sql = "Select * from annonse"; 
-		List<SqlRow> sqlRows = Ebean.createSqlQuery(sql).findList();
-		String test = "TEST[{\"annonseid\":7, \"info\":\"info\", \"typeid\":1, \"varighet\":2, \"linjeid\":1, \"trinnid\":1, \"url\":\"eyfe\", \"kontaktnavn\":\"Petter\", \"kontaktemail\":\"mail\", \"frist\":\"2014-09-10\", \"teller\":0, \"prioritet\":\"true\", \"sted\":\"grimstad\", \"bedriftsnavn\":\"Feier as\", \"tittel\":\"Feier\"}]";
 		
-		String fileName = "/home/thomas/Dokumenter/Bindeleddet/public/jSon/phones.json";
-		
-		    BufferedReader br = new BufferedReader(new FileReader(fileName));
-		    try {
-		        StringBuilder sb = new StringBuilder();
-		        String line = br.readLine();
-
-		        while (line != null) {
-		            sb.append(line);
-		            sb.append("\n");
-		            line = br.readLine();
-		        }
-		        test = sb.toString();
-		        StringBuilder contentInnerHtml = new StringBuilder();
-		        contentInnerHtml.append(test);
-		    } finally {
-		        br.close();
-		    }
-		    return ok(angular.render(test));
+			String test = annonseJson();
+		    return ok(angular.render(test, "Sorlandsportalen"));
 		}
 
 	@Transactional
