@@ -28,8 +28,79 @@ public class Databasen {
 		String sql = query;
 		List<SqlRow> sqlRows = Ebean.createSqlQuery(sql).findList();
 		for (SqlRow sqlRow : sqlRows) {
-			String name = sqlRow.getString("navn");
-			list.add(name);
+			String info = sqlRow.getString("info");
+			list.add(info);
+			int type = Integer.parseInt(sqlRow.getString("typeId"));
+			if(type==1){
+				list.add("Sommerjobb");
+			}
+			else if(type==2){
+				list.add("Deltidsjobb");
+			}
+			else{
+				list.add("Fulltidsjobb");
+			}
+			String varighet = sqlRow.getString("varighet");
+			list.add(varighet);
+			String linjeId = sqlRow.getString("linjeId");
+			list.add(linjeId);
+			String trinnId = sqlRow.getString("trinnId");
+			list.add(trinnId);
+			String url = sqlRow.getString("url");
+			list.add(url);
+			String kontaktNavn = sqlRow.getString("kontaktNavn");
+			list.add(kontaktNavn);
+			String kontaktEmail = sqlRow.getString("kontaktEmail");
+			list.add(kontaktEmail);
+			String frist = sqlRow.getString("frist");
+			list.add(frist);
+			String sted = sqlRow.getString("sted");
+			list.add(sted);
+			String bedriftsNavn = sqlRow.getString("bedriftsNavn");
+			list.add(bedriftsNavn);
+			String tittel = sqlRow.getString("tittel");
+			list.add(tittel);
+			
+		}
+		return list;
+	}
+	
+	public ArrayList<String> jsonList(String query) {
+		ArrayList<String> list = new ArrayList<>();
+		String sql = query;
+		List<SqlRow> sqlRows = Ebean.createSqlQuery(sql).findList();
+		for (SqlRow sqlRow : sqlRows) {
+			String annonseId = sqlRow.getString("annonseId");
+			list.add(annonseId);
+			String info = sqlRow.getString("info");
+			list.add(info);
+			String type = sqlRow.getString("typeId");
+			list.add(type);		
+			String varighet = sqlRow.getString("varighet");
+			list.add(varighet);
+			String linjeId = sqlRow.getString("linjeId");
+			list.add(linjeId);
+			String trinnId = sqlRow.getString("trinnId");
+			list.add(trinnId);
+			String url = sqlRow.getString("url");
+			list.add(url);
+			String kontaktNavn = sqlRow.getString("kontaktNavn");
+			list.add(kontaktNavn);
+			String kontaktEmail = sqlRow.getString("kontaktEmail");
+			list.add(kontaktEmail);
+			String frist = sqlRow.getString("frist");
+			list.add(frist);
+			String teller = sqlRow.getString("teller");
+			list.add(teller);
+			String prioritet = sqlRow.getString("prioritet");
+			list.add(prioritet);
+			String sted = sqlRow.getString("sted");
+			list.add(sted);
+			String bedriftsNavn = sqlRow.getString("bedriftsNavn");
+			list.add(bedriftsNavn);
+			String tittel = sqlRow.getString("tittel");
+			list.add(tittel);
+			
 		}
 		return list;
 	}

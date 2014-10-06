@@ -1,9 +1,71 @@
-@(message: String)	@main("Bindeleddet") {
+@(title: String, annonseList: List[String])
+@main(title){
 
-<body >
+<div class="jumbotron black">
+<div class="row">
+<div class="col-md-4 hero-spacer">
+<h4 class="white">Info</h4>
+<table class="table table-condensed white" id="table">
+					<tbody>
+						<tr>
+							<td>Firmanavn</td>
+							<th>@annonseList.get(10)</th>
+						</tr>
+						<tr>
+							<td>Stillingstype</td>
+							<th>@annonseList.get(1)</th>
+						</tr>
+						<tr>
+							<td>Arbeidssted</td>
+							<th>@annonseList.get(9)</th>
+						</tr>
+						<tr>
+							<td>Varighet</td>
+							<th>@annonseList.get(2) uker</th>
+						</tr>
+						<tr>
+							<td>Søknadsfrsit</td>
+							<th>@annonseList.get(8)</th>
+						</tr>
+					</tbody>
+				</table>
+</div>
+<div class="col-md-1 hero-spacer"">
+</div>
 
-Detaljside for id: 
+<div class="col-md-6 hero-spacer"">
 
-	</body>
+	<div class="white">
+	<h1>@annonseList.get(11)</h1>
+	<h4>@annonseList.get(0)</h4>
+	</div>
 
+</div>
+
+</div>
+
+<div class="row">
+<div class="col-md-4 hero-spacer">
+
+<h4 class="white">Kontakt</h4>
+<table class="table table-condensed white" id="table">
+					<tbody>
+						<tr>
+							<td>Kontaktperson</td>
+							<th>@annonseList.get(6)</th>
+						</tr>
+						<tr>
+							<td>Mail</td>
+							<th>@annonseList.get(7)</th>
+						</tr>
+						<tr>
+							<td>Url</td>
+							<th><a href=@annonseList.get(5)>Link</a></th>
+						</tr>
+					</tbody>
+				</table>
+
+</div>
+</div>
+</div>
 }

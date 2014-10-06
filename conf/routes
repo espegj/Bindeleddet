@@ -4,10 +4,11 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-
 GET     /addAdvertisement	        controllers.Application.addAdvertisement()
 POST  	/addAdvertisement           controllers.Application.uploadData()
 
+
+ 
 
 #Security
 GET     /login                		controllers.Application.login()

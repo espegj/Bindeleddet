@@ -4,18 +4,10 @@ import static play.data.Form.form;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.io.BufferedReader;
 import java.util.List;
-import java.util.Scanner;
 
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
@@ -24,50 +16,43 @@ import views.html.*;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.SqlRow;
-import com.avaje.ebean.SqlUpdate;
 
-import play.Logger;
 import play.data.DynamicForm;
-import play.data.Form;
-import play.db.ebean.Transactional;
-import play.mvc.*;
-import play.mvc.Http.MultipartFormData;
-import models.linje;
-import views.html.*;
-
 
 public class Application extends Controller {
 
 	public static Result index() {
 		return ok(index.render("Bindeleddet"));
 	}
-	
+
 	public static Result json() {
 		return ok(json.render("Your new application is ready."));
 	}
 
-	
+	@Transactional
 	public static Result detail() {
-		
-		return ok(detail.render(""));
+
+		DynamicForm dynamicForm = form().bindFromRequest();
+		int id = Integer.parseInt(dynamicForm.get("id"));
+		Databasen db = new Databasen();
+		List<String> annonseList = db.select("select * from annonse where annonseId=" + id + "");
+		return ok(detail.render("test", annonseList));
 	}
 
 	public static Result login() {
 		try {
-			 
+
 			String content = "This is the content to write into file";
- 
+
 			File file = new File("/home/thomas/Dokumenter/Bindeleddet/public/jSon/filename.txt");
- 
- 
+
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(content);
 			bw.close();
-			
- 
+
 			System.out.println("Done");
- 
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -87,7 +72,7 @@ public class Application extends Controller {
 		}
 
 		int teller = 0;
-		
+
 		for (Object json1 : list) {
 			tmp = String.valueOf(json1);
 			int t = 0;
@@ -97,8 +82,8 @@ public class Application extends Controller {
 			int l = 0;
 			int p = 0;
 			int q = 0;
-			int d = 0;			
-			int count=0;
+			int d = 0;
+			int count = 0;
 			int date = tmp.indexOf("frist=");
 			for (char ch : tmp.toCharArray()) {
 				String s = String.valueOf(ch);
@@ -109,7 +94,7 @@ public class Application extends Controller {
 				}
 				if (s.equals("=")) {
 					e = 1;
-				}			
+				}
 				if (s.equals("{")) {
 					t = 1;
 				}
@@ -123,10 +108,10 @@ public class Application extends Controller {
 					}
 				}
 
-				if(count==date+7 || count ==date+17){
-					test=test+"\"";	
+				if (count == date + 7 || count == date + 17) {
+					test = test + "\"";
 				}
-				
+
 				if (q == 1) {
 					test = test + ", \"";
 					q = 0;
@@ -186,18 +171,15 @@ public class Application extends Controller {
 		return true;
 	}
 
-
 	public static Result addAdvertisement() {
 		return ok(addAdvertisement.render("Legg til"));
 	}
 
-	
 	@Transactional
 	public static Result angular() throws IOException {
-		
-			String test = annonseJson();
-		    return ok(angular.render(test, "Sorlandsportalen"));
-		}
+		String test = annonseJson1();
+		return ok(angular.render(test, "Sorlandsportalen"));
+	}
 
 	@Transactional
 	public static Result uploadData() {
@@ -219,7 +201,6 @@ public class Application extends Controller {
 		input.add("sted");
 		input.add("bedriftsNavn");
 		input.add("tittel");
-
 
 		for (String i : input) {
 			if (dynamicForm.get(i) == null || dynamicForm.get(i) == "") {
@@ -247,6 +228,46 @@ public class Application extends Controller {
 				inputValue.get(11), inputValue.get(12));
 
 		return ok(index.render("Bindeleddet"));
+
+	}
+
+	public static String annonseJson1() {
+		Databasen db = new Databasen();
+		ArrayList<String> list = db.jsonList("select * from annonse");
+		String jsonTmp = "";
+		String json = "";
+		for (int i = 0; i < list.size(); i += 15) {
+
+			if (list.size() == i + 15) {
+				jsonTmp = jsonTmp + "{\"annonseId\": " + list.get(i) + ", \"info\": \""
+						+ list.get(i + 1) + "\", \"typeId\": " + list.get(i + 2)
+						+ ",  \"varighet\": " + list.get(i + 3) + ",  \"linjeId\": "
+						+ list.get(i + 4) + ",  \"trinnId\": " + list.get(i + 5) + ""
+						+ ", \"url\": \"" + list.get(i + 6) + "\", \"kontaktNavn\": \""
+						+ list.get(i + 7) + "\", \"kontaktEmail\": \"" + list.get(i + 8)
+						+ "\", \"frist\": \"" + list.get(i + 9) + "\", \"teller\": \""
+						+ list.get(i + 10) + "\"" + ", \"prioritet\": \"" + list.get(i + 11)
+						+ "\", \"sted\": \"" + list.get(i + 12) + "\", \"bedriftsNavn\": \""
+						+ list.get(i + 13) + "\", \"tittel\": \"" + list.get(i + 14) + "\"}";
+			} else {
+				jsonTmp = jsonTmp + "{\"annonseId\": " + list.get(i) + ", \"info\": \""
+						+ list.get(i + 1) + "\", \"typeId\": " + list.get(i + 2)
+						+ ",  \"varighet\": " + list.get(i + 3) + ",  \"linjeId\": "
+						+ list.get(i + 4) + ",  \"trinnId\": " + list.get(i + 5) + ""
+						+ ", \"url\": \"" + list.get(i + 6) + "\", \"kontaktNavn\": \""
+						+ list.get(i + 7) + "\", \"kontaktEmail\": \"" + list.get(i + 8)
+						+ "\", \"frist\": \"" + list.get(i + 9) + "\", \"teller\": \""
+						+ list.get(i + 10) + "\"" + ", \"prioritet\": \"" + list.get(i + 11)
+						+ "\", \"sted\": \"" + list.get(i + 12) + "\", \"bedriftsNavn\": \""
+						+ list.get(i + 13) + "\", \"tittel\": \"" + list.get(i + 14) + "\"}, ";
+			}
+
+		}
+
+		json = "[" + jsonTmp + "]";
+		System.out.println(json);
+
+		return json;
 
 	}
 }

@@ -17,35 +17,67 @@ $scope.orderProp = 'age';
 	</head>
 	<body ng-controller="PhoneListCtrl">
 
- <div class="container-fluid">
- <div class="row">
- <div class="col-md-2">
- <!--Sidebar content-->
 
+
+ <div class="col-md-0">
+ <!--Sidebar content-->
  Search: <input ng-model="query">
  Sort by:
  <select ng-model="orderProp">
  <option value="name">Alphabetical</option>
  <option value="age">Newest</option>
  </select>
-
-
  </div>
- <div class="col-md-10">
- <!--Body content-->
 
- <ul class="phones">
- <li ng-repeat="phone in phones | filter:query | orderBy:orderProp" class="thumbnail">
- <a href="/detail?id={{phone.annonseid}}">{{phone.annonseid}}</a>
- <p>{{phone.info}}</p>
 
- </li>
- </ul>
-
+<div class="row">
+ 
+ <div class="col-md-12">
+ <div class="phones">
+ <div ng-repeat="phone in phones | filter:query | orderBy:orderProp" style="float:left">
+ <div class="jumbotron black">
+ <div class="white">
+ <h2 class="white"><a href="/detail?id={{phone.annonseId}}">{{phone.tittel}}</a></h2>
+ <table class="table table-condensed white" id="table">
+					<tbody>
+						<tr>
+							<td>Firmanavn</td>
+							<th>{{phone.bedriftsNavn}}</th>
+						</tr>
+						<tr>
+							<td>Sted</td>
+							<th>{{phone.sted}}</th>
+						</tr>
+						<tr>
+							<td>Frist</td>
+							<th>{{phone.frist}}</th>
+						</tr>
+					</tbody>
+				</table>
+ </div>
+  </div>
+  </div>
  </div>
  </div>
- </div>
+
+</div>
+
+ 
+
+ 
+ 
 	</body>
+	
+	
+	
+	
+	
+
+
+	
+	
+	
+	
 </html>
 
 }
