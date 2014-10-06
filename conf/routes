@@ -4,13 +4,15 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+GET     /detail                     controllers.Application.detail()
 GET     /add	             		controllers.Application.addAdvertisement()
 
 
 #Security
 GET     /login                		controllers.Application.login()
 
-
+#Angular
+GET		/angular					controllers.Application.angular()
 
 
 # Map static resources from the /public folder to the /assets URL path
