@@ -1,0 +1,54 @@
+@(title: String)
+@main(title){
+
+<html ng-app="phonecatApp">
+	<head>
+  		<meta charset="utf-8">
+<script type="text/javascript" language="JavaScript">
+
+var phonecatApp = angular.module('phonecatApp', []);
+
+phonecatApp.controller('PhoneListCtrl', function($scope) {
+$scope.phones = $.parseJSON($(document).find("title").text());
+	
+  alert($scope.phones);
+$scope.orderProp = 'age';
+});
+
+</script>
+	
+	</head>
+	<body ng-controller="PhoneListCtrl">
+
+ <div class="container-fluid">
+ <div class="row">
+ <div class="col-md-2">
+ <!--Sidebar content-->
+
+ Search: <input ng-model="query">
+ Sort by:
+ <select ng-model="orderProp">
+ <option value="name">Alphabetical</option>
+ <option value="age">Newest</option>
+ </select>
+
+
+ </div>
+ <div class="col-md-10">
+ <!--Body content-->
+
+ <ul class="phones">
+ <li ng-repeat="phone in phones | filter:query | orderBy:orderProp" class="thumbnail">
+ <a href="/detail?id={{phone.id}}">{{phone.name}}</a>
+ <p>{{phone.snippet}}</p>
+
+ </li>
+ </ul>
+
+ </div>
+ </div>
+ </div>
+	</body>
+</html>
+
+}
