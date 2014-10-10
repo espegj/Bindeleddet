@@ -1,7 +1,11 @@
 @(json: String, title: String)
 @main(json){
 
+
+
 <html ng-app="phonecatApp">
+
+	
 	<head>
   		<meta charset="utf-8">
 <script type="text/javascript" language="JavaScript">
@@ -15,66 +19,93 @@ $scope.orderProp = 'age';
 </script>
 	
 	</head>
+	
 	<body ng-controller="PhoneListCtrl">
 
-
-
- <div class="col-md-0">
- <!--Sidebar content-->
- Search: <input ng-model="query">
- Sort by:
- <select ng-model="orderProp">
- <option value="name">Alphabetical</option>
- <option value="age">Newest</option>
- </select>
- </div>
-
-
 <div class="row">
- 
- <div class="col-md-12">
- <div class="phones">
+
+<div class="col-md-2">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle navbar-default" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    Årstrinn
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+    <li role="presentation" class="divider"></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+  </ul>
+</div>
+</div>
+
+<div class="col-md-2">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+    <li role="presentation" class="divider"></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+  </ul>
+</div>
+</div>
+
+<div class="col-md-2">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+    <li role="presentation" class="divider"></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+  </ul>
+</div>
+</div>
+
+</div>
+
+<br>
+
+
+
+
+
+<div class="jumbotron black">
+<div class="row">
  <div ng-repeat="phone in phones | filter:query | orderBy:orderProp" style="float:left">
- <div class="jumbotron black">
- <div class="white">
- <h2 class="white"><a href="/detail?id={{phone.annonseId}}">{{phone.tittel}}</a></h2>
- <table class="table table-condensed white" id="table">
+  <div class="col-md-12">
+ <h2><a class="white" href="/detail?id={{phone.annonseId}}">{{phone.tittel}}</a></h2>
+ <table class="table table-condensed white" >
 					<tbody>
 						<tr>
-							<td>Firmanavn</td>
+							<td>Bedrift</td>
 							<th>{{phone.bedriftsNavn}}</th>
 						</tr>
 						<tr>
 							<td>Sted</td>
 							<th>{{phone.sted}}</th>
 						</tr>
-						<tr>
-							<td>Frist</td>
-							<th>{{phone.frist}}</th>
-						</tr>
 					</tbody>
 				</table>
+</div> 
+ 
  </div>
-  </div>
-  </div>
- </div>
- </div>
-
+</div>
 </div>
 
- 
-
- 
- 
 	</body>
 	
-	
-	
-	
-	
-
-
-	
+ 
 	
 	
 	

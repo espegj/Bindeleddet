@@ -32,6 +32,16 @@ body {
 .white{
 	color: #ffffff;
 }
+.grey{
+	color: #999;
+}
 textarea {
    resize: none;
 }
+.black{
+	color: #001;
+}
+a:hover { 
+	color: #999; 
+}
+

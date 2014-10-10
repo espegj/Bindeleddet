@@ -36,7 +36,7 @@
             <ul class="nav navbar-nav">
              <li><a href="@routes.Application.index()" class="">Hjem</a>
                 </li>
-                <li><a href="#bedrifter" class="">Bedrifter</a>
+                <li><a href="angular" class="">Annonser</a>
                 </li>
                 <li><a href="#omOss" class="">Om oss</a>
                 </li>
@@ -45,7 +45,7 @@
             </ul>
             <form class="navbar-form" role="search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">	<span class="input-group-btn">
+                    <input ng-model="query" type="text" class="form-control" placeholder="Search">	<span class="input-group-btn">
 							<button type="reset" class="btn btn-default">
 								<span class="glyphicon glyphicon-remove">
 									<span class="sr-only">Close</span>

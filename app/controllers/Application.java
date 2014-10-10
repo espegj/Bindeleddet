@@ -265,8 +265,6 @@ public class Application extends Controller {
 		}
 
 		json = "[" + jsonTmp + "]";
-		System.out.println(json);
-
 		return json;
 
 	}

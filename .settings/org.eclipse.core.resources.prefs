@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//app/views/addAdvertisement.scala.html=UTF-8
 encoding//app/views/detail.scala.html=UTF-8
+encoding//app/views/index.scala.html=UTF-8
 encoding//app/views/login.scala.html=UTF-8
 encoding/<project>=UTF-8
