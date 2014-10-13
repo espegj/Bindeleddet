@@ -1,4 +1,4 @@
-name := "testPlay"
+name := "sorlandsportalen"
 
 version := "1.0-SNAPSHOT"
 
