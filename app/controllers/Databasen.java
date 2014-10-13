@@ -24,7 +24,7 @@ public class Databasen {
 	}
 
 	public ArrayList<String> select(String query) {
-		ArrayList<String> list = new ArrayList<>();
+		ArrayList<String> list = new ArrayList<String>();
 		String sql = query;
 		List<SqlRow> sqlRows = Ebean.createSqlQuery(sql).findList();
 		for (SqlRow sqlRow : sqlRows) {
@@ -66,7 +66,7 @@ public class Databasen {
 	}
 	
 	public ArrayList<String> jsonList(String query) {
-		ArrayList<String> list = new ArrayList<>();
+		ArrayList<String> list = new ArrayList<String>();
 		String sql = query;
 		List<SqlRow> sqlRows = Ebean.createSqlQuery(sql).findList();
 		for (SqlRow sqlRow : sqlRows) {

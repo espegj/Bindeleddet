@@ -73,7 +73,7 @@ public class Application extends Controller {
 		String json = "";
 		String tmp = "";
 		String test = "";
-		ArrayList<String> list1 = new ArrayList<>();
+		ArrayList<String> list1 = new ArrayList<String>();
 		for (Object i : list) {
 			tmp = String.valueOf(i);
 			list1.add(tmp);
@@ -192,8 +192,8 @@ public class Application extends Controller {
 	@Transactional
 	public static Result uploadData() {
 
-		ArrayList<String> input = new ArrayList<>();
-		ArrayList<String> inputValue = new ArrayList<>();
+		ArrayList<String> input = new ArrayList<String>();
+		ArrayList<String> inputValue = new ArrayList<String>();
 
 		DynamicForm dynamicForm = form().bindFromRequest();
 		input.add("info");
