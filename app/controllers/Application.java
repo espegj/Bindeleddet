@@ -6,8 +6,16 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
@@ -22,6 +30,7 @@ import play.data.DynamicForm;
 public class Application extends Controller {
 
 	public static Result index() {
+		
 		return ok(index.render("Bindeleddet"));
 	}
 
@@ -31,7 +40,6 @@ public class Application extends Controller {
 
 	@Transactional
 	public static Result detail() {
-
 		DynamicForm dynamicForm = form().bindFromRequest();
 		int id = Integer.parseInt(dynamicForm.get("id"));
 		Databasen db = new Databasen();
@@ -177,7 +185,7 @@ public class Application extends Controller {
 
 	@Transactional
 	public static Result angular() throws IOException {
-		String test = annonseJson1();
+		String test = jsonString();
 		return ok(angular.render(test, "Sorlandsportalen"));
 	}
 
@@ -267,5 +275,41 @@ public class Application extends Controller {
 		json = "[" + jsonTmp + "]";
 		return json;
 
+	}
+
+	public static String jsonString(){
+		String str="";
+		try {
+			URL url = new URL("http://sorlandsportalen.no/public/webservice/test.php");
+			URLConnection con = url.openConnection();
+			Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+			Matcher m = p.matcher(con.getContentType());
+			/* If Content-Type doesn't match this pre-conception, choose default and 
+			 * hope for the best. */
+			String charset = m.matches() ? m.group(1) : "ISO-8859-1";
+			Reader r = new InputStreamReader(con.getInputStream(), charset);
+			StringBuilder buf = new StringBuilder();
+			while (true) {
+			  int ch = r.read();
+			  if (ch < 0)
+			    break;
+			  buf.append((char) ch);
+			}
+			str = buf.toString();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String json="";
+		int last = str.length();
+		int count = 0;
+		for (char ch : str.toCharArray()) {
+			String s = String.valueOf(ch);
+			count++;
+			if(count>21 && count<last){
+				json+=s;
+			}
+		}
+		return json;
 	}
 }
