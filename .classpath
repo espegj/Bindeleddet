@@ -88,7 +88,6 @@
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/repository/local/org.seleniumhq.selenium/selenium-android-driver/2.32.0/jars/selenium-android-driver.jar"/>
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/repository/local/org.seleniumhq.selenium/selenium-remote-driver/2.32.0/jars/selenium-remote-driver.jar"/>
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/repository/local/cglib/cglib-nodep/2.1_3/jars/cglib-nodep.jar"/>
-	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/repository/local/org.json/json/20080701/jars/json.jar"/>
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/repository/local/org.seleniumhq.selenium/selenium-api/2.32.0/jars/selenium-api.jar"/>
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/repository/local/org.apache.httpcomponents/httpclient/4.2.1/jars/httpclient.jar"/>
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/repository/local/org.apache.httpcomponents/httpcore/4.2.1/jars/httpcore.jar"/>
@@ -122,8 +121,7 @@
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/repository/local/org.easytesting/fest-util/1.1.6/jars/fest-util.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/play-2.2.1/framework/sbt/boot/scala-2.10.2/lib/scala-library.jar"/>
-	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/json-20131018.jar"/>
 	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/java-json.jar"/>
-	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/json-20090211.jar"/>
+	<classpathentry kind="lib" path="/Users/espengjernes/Downloads/org.json-chargebee-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

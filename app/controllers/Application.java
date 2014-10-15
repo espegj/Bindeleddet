@@ -2,9 +2,6 @@ package controllers;
 
 import static play.data.Form.form;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -14,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -25,7 +21,19 @@ import play.data.DynamicForm;
 public class Application extends Controller {
 
 	public static Result index() {
-		String test = getJson("sorlandsportalen.no/public/webservice/test.php");
+		String test = getJson("http://sorlandsportalen.no/public/webservice/alle_annonser.php");
+		
+//		String JSON_DATA =test;
+//		JSONObject obj = new JSONObject(JSON_DATA);
+//		JSONArray geodata = obj.getJSONArray("geodata");
+//		int n = geodata.length();
+//		for (int i = 0; i < n; ++i) {
+//		      final JSONObject person = geodata.getJSONObject(i);
+//		      System.out.println(person.getInt("annonseId"));
+//		      System.out.println(person.getString("tittel"));
+//		      System.out.println(person.getString("sted"));
+//		    }
+		
 		return ok(angular.render(test, "Sorlandsportalen"));
 	}
 	
@@ -101,15 +109,12 @@ public class Application extends Controller {
 	}
 
 	public static String getJson(String link){
-
 		String str="";
 		try {
 			URL url = new URL(link);
 			URLConnection con = url.openConnection();
 			Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
 			Matcher m = p.matcher(con.getContentType());
-			/* If Content-Type doesn't match this pre-conception, choose default and 
-			 * hope for the best. */
 			String charset = m.matches() ? m.group(1) : "ISO-8859-1";
 			Reader r = new InputStreamReader(con.getInputStream(), charset);
 			StringBuilder buf = new StringBuilder();
@@ -121,8 +126,7 @@ public class Application extends Controller {
 			}
 			str = buf.toString();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Feil JSON-adresse!");
 		}
 		String json="";
 		int last = str.length();

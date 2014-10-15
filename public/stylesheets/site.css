@@ -1,10 +1,8 @@
 body {
-     background-image:url("../images/background.jpg");
-     background-attachment: fixed; 
-  	 -webkit-background-size: cover;
-     -o-background-size: cover;
-     -moz-background-size: cover;
-     background-size: cover;
+     background-image:url("../images/tweed.png");
+     background-repeat: repeat;
+     
+  	 
 }
 .opacity{
 	background: rgba(191, 191, 191, 0.9); 
@@ -21,12 +19,12 @@ body {
 	font-family: timeFont;
  }
  .opacity1{
-	opacity: 0.9; 
+	opacity: 0.6; 
 }
 
 .black{
 	background: rgb(0, 0, 0); 
-   	background: rgba(0, 0, 0, 0.85);
+   	background: rgba(0, 0, 0, 0.6);
 }
 
 .white{
@@ -44,4 +42,6 @@ textarea {
 a:hover { 
 	color: #999; 
 }
+
+
 
