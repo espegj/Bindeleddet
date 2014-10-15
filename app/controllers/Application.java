@@ -11,8 +11,10 @@ import java.io.Reader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -23,17 +25,14 @@ import play.data.DynamicForm;
 public class Application extends Controller {
 
 	public static Result index() {
-
-		return ok(index.render("Bindeleddet"));
+		String test = getJson("sorlandsportalen.no/public/webservice/test.php");
+		return ok(angular.render(test, "Sorlandsportalen"));
 	}
-
-	public static Result json() {
-		return ok(json.render("Your new application is ready."));
-	}
-
-
+	
 	public static Result detail() {
-		ArrayList<String> annonseList = new ArrayList<String>();
+		
+		List<String> annonseList = null;
+
 		return ok(detail.render("test", annonseList));
 	}
 	
@@ -42,20 +41,10 @@ public class Application extends Controller {
 		return ok(login.render("Log inn"));
 	}
 
-	public static boolean isNumeric(String str) {
-		try {
-			double d = Double.parseDouble(str);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
-	}
-
 	public static Result addAdvertisement() {
 		return ok(addAdvertisement.render("Legg til"));
 	}
 
-	
 	public static Result angular() throws IOException {
 		String test = getJson("sorlandsportalen.no/public/webservice/test.php");
 		return ok(angular.render(test, "Sorlandsportalen"));
@@ -112,6 +101,7 @@ public class Application extends Controller {
 	}
 
 	public static String getJson(String link){
+
 		String str="";
 		try {
 			URL url = new URL(link);
