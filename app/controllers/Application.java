@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -20,12 +25,12 @@ import play.data.DynamicForm;
 
 public class Application extends Controller {
 
-	public static Result index() {
+	public static Result index() throws JSONException {
 		String test = getJson("http://sorlandsportalen.no/public/webservice/alle_annonser.php");
 		
-//		String JSON_DATA =test;
+//		String JSON_DATA = test;
 //		JSONObject obj = new JSONObject(JSON_DATA);
-//		JSONArray geodata = obj.getJSONArray("geodata");
+//		JSONArray geodata = obj.getJSONArray("posts");
 //		int n = geodata.length();
 //		for (int i = 0; i < n; ++i) {
 //		      final JSONObject person = geodata.getJSONObject(i);
@@ -54,7 +59,8 @@ public class Application extends Controller {
 	}
 
 	public static Result angular() throws IOException {
-		String test = getJson("sorlandsportalen.no/public/webservice/test.php");
+		
+		String test = getJson("sorlandsportalen.no/public/webservice/test.php");		
 		return ok(angular.render(test, "Sorlandsportalen"));
 	}
 
