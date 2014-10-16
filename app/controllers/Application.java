@@ -22,35 +22,30 @@ import play.mvc.Result;
 import views.html.*;
 import play.data.DynamicForm;
 
-
 public class Application extends Controller {
 
 	public static Result index() throws JSONException {
 		String test = getJson("http://sorlandsportalen.no/public/webservice/alle_annonser.php");
-		
-//		String JSON_DATA = test;
-//		JSONObject obj = new JSONObject(JSON_DATA);
-//		JSONArray geodata = obj.getJSONArray("posts");
-//		int n = geodata.length();
-//		for (int i = 0; i < n; ++i) {
-//		      final JSONObject person = geodata.getJSONObject(i);
-//		      System.out.println(person.getInt("annonseId"));
-//		      System.out.println(person.getString("tittel"));
-//		      System.out.println(person.getString("sted"));
-//		    }
-		
 		return ok(angular.render(test, "Sorlandsportalen"));
 	}
-	
-	public static Result detail() {
-		
-		List<String> annonseList = null;
 
-		return ok(detail.render("test", annonseList));
+	public static Result detail() throws JSONException {
+
+		DynamicForm dynamicForm = form().bindFromRequest();
+		int id = Integer.parseInt(dynamicForm.get("id"));
+
+		ArrayList<ArrayList<String>> list = getAnnonse(id);
+		ArrayList<String> divInfo = list.get(0);
+		ArrayList<String> linje = list.get(1);
+		ArrayList<String> stilling = list.get(2);
+		ArrayList<String> trinn = list.get(3);
+		
+
+		return ok(detail.render("test", divInfo, linje, stilling, trinn));
 	}
-	
+
 	public static Result login() {
-	
+
 		return ok(login.render("Log inn"));
 	}
 
@@ -59,8 +54,8 @@ public class Application extends Controller {
 	}
 
 	public static Result angular() throws IOException {
-		
-		String test = getJson("sorlandsportalen.no/public/webservice/test.php");		
+
+		String test = getJson("sorlandsportalen.no/public/webservice/alle_annonser.php");
 		return ok(angular.render(test, "Sorlandsportalen"));
 	}
 
@@ -114,8 +109,8 @@ public class Application extends Controller {
 
 	}
 
-	public static String getJson(String link){
-		String str="";
+	public static String getJson(String link) {
+		String str = "";
 		try {
 			URL url = new URL(link);
 			URLConnection con = url.openConnection();
@@ -125,25 +120,97 @@ public class Application extends Controller {
 			Reader r = new InputStreamReader(con.getInputStream(), charset);
 			StringBuilder buf = new StringBuilder();
 			while (true) {
-			  int ch = r.read();
-			  if (ch < 0)
-			    break;
-			  buf.append((char) ch);
+				int ch = r.read();
+				if (ch < 0)
+					break;
+				buf.append((char) ch);
 			}
 			str = buf.toString();
 		} catch (IOException e) {
 			System.out.println("Feil JSON-adresse!");
 		}
-		String json="";
+		String json = "";
 		int last = str.length();
 		int count = 0;
 		for (char ch : str.toCharArray()) {
 			String s = String.valueOf(ch);
 			count++;
-			if(count>21 && count<last){
-				json+=s;
+			if (count > 21 && count < last) {
+				json += s;
 			}
 		}
 		return json;
+	}
+
+	public static String getJsonAll(String link) {
+		String str = "";
+		try {
+			URL url = new URL(link);
+			URLConnection con = url.openConnection();
+			Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+			Matcher m = p.matcher(con.getContentType());
+			String charset = m.matches() ? m.group(1) : "ISO-8859-1";
+			Reader r = new InputStreamReader(con.getInputStream(), charset);
+			StringBuilder buf = new StringBuilder();
+			while (true) {
+				int ch = r.read();
+				if (ch < 0)
+					break;
+				buf.append((char) ch);
+			}
+			str = buf.toString();
+		} catch (IOException e) {
+			System.out.println("Feil JSON-adresse!");
+		}
+		return str;
+	}
+
+	public static ArrayList<ArrayList<String>> getAnnonse(int id) throws JSONException {
+		ArrayList<ArrayList<String>> list = new ArrayList<>();
+		ArrayList<String> divInfo = new ArrayList<>();
+		ArrayList<String> linje = new ArrayList<>();
+		ArrayList<String> trinn = new ArrayList<>();
+		ArrayList<String> stilling = new ArrayList<>();
+
+		String JSON_DATA = getJsonAll("http://sorlandsportalen.no/public/webservice/alle_annonser.php");
+		JSONObject obj = new JSONObject(JSON_DATA);
+		JSONArray geodata = obj.getJSONArray("posts");
+		int n = geodata.length();
+		System.out.println(n);
+		for (int i = 0; i < n; ++i) {
+			final JSONObject person = geodata.getJSONObject(i);
+			if (person.getInt("annonseId") == id) {
+				if (divInfo.isEmpty()) {
+					divInfo.add(person.getString("tittel"));
+					divInfo.add(person.getString("sted"));
+					divInfo.add(person.getString("frist"));
+					divInfo.add(person.getString("teller"));
+					divInfo.add(person.getString("info"));
+					divInfo.add(person.getString("bedriftsNavn"));
+					divInfo.add(person.getString("varighet"));
+					divInfo.add(person.getString("url"));
+					divInfo.add(person.getString("kontaktNavn"));
+					divInfo.add(person.getString("kontaktEmail"));
+					divInfo.add(person.getString("prioritet"));
+				}
+
+				if (!linje.contains(person.getString("navn"))) {
+					linje.add(person.getString("navn"));
+				}
+				if (!stilling.contains(person.getString("stilling"))) {
+					stilling.add(person.getString("stilling"));
+				}
+				if (!trinn.contains(person.getString("trinn"))) {
+					trinn.add(person.getString("trinn"));
+				}
+
+			}
+
+		}
+		list.add(divInfo);
+		list.add(linje);
+		list.add(stilling);
+		list.add(trinn);
+		return list;
 	}
 }
