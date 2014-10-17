@@ -28,8 +28,9 @@ $scope.getData = function (phones, query) {
 
 <div class="row">
 
-<div class="col-sm-3 col-md-3">
-<select ng-change="getData(phone, query2)" ng-model="query2" class="form-control" placeholder="Årstrinn">
+<div class="col-sm-4 col-md-3">
+<select class="selectpicker" ng-change="getData(phone, query2)" ng-model="query2" class="form-control" title="Årstrinn">
+    <option></option>
     <option>1.Klasse</option>
     <option>2.Klasse</option>
     <option>3.Klasse</option>
@@ -38,16 +39,18 @@ $scope.getData = function (phones, query) {
 </select>
 </div>
 
-<div class="col-sm-3 col-md-3">
-<select ng-change="getData(phone, query2)" ng-model="query3" class="form-control" placeholder="Årstrinn">
+<div class="col-sm-4 col-md-3">
+<select class="selectpicker" ng-change="getData(phone, query2)" ng-model="query3" class="form-control" title="Jobbtype">
+	<option></option>
     <option>Fulltid</option>
     <option>Deltid</option>
     <option>Sommerjobb</option>
 </select>
 </div>
 
-<div class="col-sm-3 col-md-3">
-<select ng-change="getData(phone, query2)" ng-model="query4" class="form-control" placeholder="Årstrinn">
+<div class="col-sm-4 col-md-3">
+<select class="selectpicker" ng-change="getData(phone, query2)" ng-model="query4" class="form-control" title="Linje">
+    <option></option>
     <option>Data</option>
     <option>Byggdesign</option>
     <option>Mekatronikk</option>
