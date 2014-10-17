@@ -8,14 +8,18 @@
 	
 	<head>
   		<meta charset="utf-8">
-<script type="text/javascript" language="JavaScript">
 
+
+<script type="text/javascript" language="JavaScript">
 var phonecatApp = angular.module('phonecatApp', []);
 phonecatApp.controller('PhoneListCtrl', function($scope) {
 $scope.phones = $.parseJSON($(document).find("title").text());
-$scope.orderProp = 'age';
-});
 
+$scope.getData = function (phones, query) {
+	  $scope.queryData = $filter('filter')(phones, query);
+	};
+
+});
 </script>
 	
 	</head>
@@ -24,7 +28,35 @@ $scope.orderProp = 'age';
 
 <div class="row">
 
-<div class="col-md-3">
+<div class="col-sm-3 col-md-3">
+<select ng-change="getData(phone, query2)" ng-model="query2" class="form-control" placeholder="Årstrinn">
+    <option>1.Klasse</option>
+    <option>2.Klasse</option>
+    <option>3.Klasse</option>
+    <option>4.Klasse</option>
+    <option>5.Klasse</option>
+</select>
+</div>
+
+<div class="col-sm-3 col-md-3">
+<select ng-change="getData(phone, query2)" ng-model="query3" class="form-control" placeholder="Årstrinn">
+    <option>Fulltid</option>
+    <option>Deltid</option>
+    <option>Sommerjobb</option>
+</select>
+</div>
+
+<div class="col-sm-3 col-md-3">
+<select ng-change="getData(phone, query2)" ng-model="query4" class="form-control" placeholder="Årstrinn">
+    <option>Data</option>
+    <option>Byggdesign</option>
+    <option>Mekatronikk</option>
+    <option>Elektronikk</option>
+    <option>Fornybar</option>
+</select>
+</div>
+
+<!-- <div class="col-sm-3 col-md-3">
 <select class="selectpicker" multiple title='Årstrinn' data-selected-text-format="count>3"> 
       <option>1.Klasse</option>
       <option>2.Klasse</option>
@@ -34,7 +66,7 @@ $scope.orderProp = 'age';
   </select>
 </div>
 
-<div class="col-md-3">
+<div class="col-sm-3 col-md-3">
 <select class="selectpicker" multiple title='Jobbtype' data-selected-text-format="count>3"> 
       <option>Fulltid</option>
       <option>Deltid</option>
@@ -42,7 +74,7 @@ $scope.orderProp = 'age';
   </select>
 </div>
 
-<div class="col-md-3">
+<div class="col-sm-3 col-md-3">
 <select class="selectpicker" multiple title='Utdanning' data-selected-text-format="count>2" data-live-search="true"> 
       <option>Data</option>
       <option>Byggdesign</option>
@@ -50,7 +82,7 @@ $scope.orderProp = 'age';
       <option>Elektronikk</option>
       <option>Fornybar</option>
   </select>
-</div>
+</div> -->
 
 </div>
 
@@ -58,7 +90,7 @@ $scope.orderProp = 'age';
 
 <div class="jumbotron black">
 <div class="row">
- <div ng-repeat="phone in phones | filter:query | orderBy:orderProp" style="float:left">
+ <div ng-repeat="phone in phones | filter:query | orderBy:orderProp | filter:query2 | filter:query3 | filter:query4" style="float:left">
   <div class="col-md-12">
  <h2><a class="white" href="/detail?id={{phone.annonseId}}">{{phone.tittel}}</a></h2>
  <table class="table table-condensed white" >

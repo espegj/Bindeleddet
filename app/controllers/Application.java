@@ -33,14 +33,11 @@ public class Application extends Controller {
 
 		DynamicForm dynamicForm = form().bindFromRequest();
 		int id = Integer.parseInt(dynamicForm.get("id"));
-
 		ArrayList<ArrayList<String>> list = getAnnonse(id);
 		ArrayList<String> divInfo = list.get(0);
 		ArrayList<String> linje = list.get(1);
 		ArrayList<String> stilling = list.get(2);
 		ArrayList<String> trinn = list.get(3);
-		
-
 		return ok(detail.render("test", divInfo, linje, stilling, trinn));
 	}
 
@@ -50,6 +47,7 @@ public class Application extends Controller {
 	}
 
 	public static Result addAdvertisement() {
+
 		return ok(addAdvertisement.render("Legg til"));
 	}
 
@@ -166,17 +164,16 @@ public class Application extends Controller {
 	}
 
 	public static ArrayList<ArrayList<String>> getAnnonse(int id) throws JSONException {
-		ArrayList<ArrayList<String>> list = new ArrayList<>();
-		ArrayList<String> divInfo = new ArrayList<>();
-		ArrayList<String> linje = new ArrayList<>();
-		ArrayList<String> trinn = new ArrayList<>();
-		ArrayList<String> stilling = new ArrayList<>();
+		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+		ArrayList<String> divInfo = new ArrayList<String>();
+		ArrayList<String> linje = new ArrayList<String>();
+		ArrayList<String> trinn = new ArrayList<String>();
+		ArrayList<String> stilling = new ArrayList<String>();
 
 		String JSON_DATA = getJsonAll("http://sorlandsportalen.no/public/webservice/alle_annonser.php");
 		JSONObject obj = new JSONObject(JSON_DATA);
 		JSONArray geodata = obj.getJSONArray("posts");
 		int n = geodata.length();
-		System.out.println(n);
 		for (int i = 0; i < n; ++i) {
 			final JSONObject person = geodata.getJSONObject(i);
 			if (person.getInt("annonseId") == id) {
