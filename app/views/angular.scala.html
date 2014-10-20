@@ -27,10 +27,27 @@ $scope.getData = function (phones, query) {
 	<body ng-controller="PhoneListCtrl">
 
 <div class="row">
+<div class="col-sm-4 col-md-4"></div>
+<div class="col-sm-4 col-md-2">
+<span class="avenir white"><h1>Sørlandsportalen</h1></span>
+</div>
 
-<div class="col-sm-4 col-md-3">
-<select class="selectpicker" ng-change="getData(phone, query2)" ng-model="query2" class="form-control" title="Årstrinn">
-    <option></option>
+
+</div>
+
+<div class="row move-down">
+<div class="col-md-3"></div>
+<div class="col-xs-12 col-md-6">
+<input ng-model="query" type="text" class="form-control" placeholder="Search">
+</div>
+
+</div>
+<br>
+<div class="row">
+<div class="col-md-3"></div>
+<div class="col-sm-4 col-md-2">
+<select ng-change="getData(phone, query2)" ng-model="query2" class="form-control" placeholder="Årstrinn">
+    <option value="" selected disabled>Årstrinn</option>
     <option>1.Klasse</option>
     <option>2.Klasse</option>
     <option>3.Klasse</option>
@@ -39,18 +56,18 @@ $scope.getData = function (phones, query) {
 </select>
 </div>
 
-<div class="col-sm-4 col-md-3">
-<select class="selectpicker" ng-change="getData(phone, query2)" ng-model="query3" class="form-control" title="Jobbtype">
-	<option></option>
+<div class="col-sm-4 col-md-2">
+<select ng-change="getData(phone, query2)" ng-model="query3" class="form-control" title="Jobbtype">
+	<option value="" selected disabled>Jobbtype</option>
     <option>Fulltid</option>
     <option>Deltid</option>
     <option>Sommerjobb</option>
 </select>
 </div>
 
-<div class="col-sm-4 col-md-3">
-<select class="selectpicker" ng-change="getData(phone, query2)" ng-model="query4" class="form-control" title="Linje">
-    <option></option>
+<div class="col-sm-4 col-md-2">
+<select ng-change="getData(phone, query2)" ng-model="query4" class="form-control" title="Linje">
+    <option value="" selected disabled>Linje</option>
     <option>Data</option>
     <option>Byggdesign</option>
     <option>Mekatronikk</option>
@@ -91,7 +108,7 @@ $scope.getData = function (phones, query) {
 
 <br>
 
-<div class="jumbotron black">
+
 <div class="row">
  <div ng-repeat="phone in phones | filter:query | orderBy:orderProp | filter:query2 | filter:query3 | filter:query4" style="float:left">
   <div class="col-md-12">
@@ -112,7 +129,7 @@ $scope.getData = function (phones, query) {
  
  </div>
 </div>
-</div>
+
 
 	</body>
 	

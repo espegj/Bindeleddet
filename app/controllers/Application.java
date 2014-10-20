@@ -26,7 +26,6 @@ public class Application extends Controller {
 
 	public static Result index() throws JSONException {
 		String test = getJson("http://sorlandsportalen.no/public/webservice/alle_annonser.php");
-		System.out.println(getAnnonseString2());
 		return ok(angular.render(getAnnonseString2(), "Sorlandsportalen"));
 	}
 
@@ -35,7 +34,6 @@ public class Application extends Controller {
 		DynamicForm dynamicForm = form().bindFromRequest();
 		int id = Integer.parseInt(dynamicForm.get("id"));
 		ArrayList<ArrayList<String>> list = getAnnonse(id);
-		System.out.println(list);
 		ArrayList<String> divInfo = list.get(0);
 		ArrayList<String> linje = list.get(1);
 		ArrayList<String> stilling = list.get(2);

@@ -43,5 +43,11 @@ a:hover {
 	color: #999; 
 }
 
+@font-face{
+	font-family: avenir;
+	src:url("../Font/Avenir.ttc"); 
+}
 
-
+ .avenir{
+	font-family: avenir;
+ }
