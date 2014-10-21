@@ -7,9 +7,18 @@ body {
 .opacity{
 	background: rgba(191, 191, 191, 0.9); 
 }
+.big{
+	font-size:200%;
+}
+
+
+.wrapper{width:30%;margin:0 auto;text-align:left;}
 
 .move-down{
-	margin-top:100px;
+	margin-top:50px;
+}
+.move-down2{
+	margin-top:40px;
 }
 @font-face{
 	font-family: timeFont;
