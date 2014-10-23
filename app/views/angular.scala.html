@@ -31,8 +31,8 @@ $scope.getData = function (phones, query) {
 <div class="row move-down2">
 <div class="col-sm-3 col-md-4"></div>
 <div class=" col-sm-4 col-md-8">
-<font class=" white" size="10">
-Sørlandsportalen</font>
+
+<h1 class="white">Sørlandsportalen</h1>
 </div>
 </div>
 
@@ -40,7 +40,7 @@ Sørlandsportalen</font>
 <div class="row move-down">
 <div class="col-md-3 col-sm-4"></div>
 <div class="col-xs-12 col-md-6">
-<input ng-model="query" type="text" class="form-control" placeholder="Search">
+<input ng-model="query" type="text" class="form-control"  value="Søk" placeholder="Search">
 </div>
 
 </div>
@@ -87,7 +87,10 @@ Sørlandsportalen</font>
 
 <div class="row">
  <div ng-repeat="phone in phones | filter:query | orderBy:orderProp | filter:query2 | filter:query3 | filter:query4" style="float:left">
+  
   <div class="col-md-12">
+ 
+
  <h2><a class="white" href="/detail?id={{phone.annonseId}}">{{phone.tittel}}</a></h2>
  <table class="table table-condensed white" >
 					<tbody>
@@ -102,8 +105,14 @@ Sørlandsportalen</font>
 					</tbody>
 				</table>
 </div> 
- 
  </div>
+</div>
+
+<div class="row white">
+<div class="col-lg-5"></div>
+<div class="col-lg-7">
+<h1>Logoer</h1>	
+</div>
 </div>
 
 

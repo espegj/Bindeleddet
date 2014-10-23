@@ -2,9 +2,13 @@ package controllers;
 
 import static play.data.Form.form;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -25,7 +29,6 @@ import play.data.DynamicForm;
 public class Application extends Controller {
 
 	public static Result index() throws JSONException {
-		String test = getJson("http://sorlandsportalen.no/public/webservice/alle_annonser.php");
 		return ok(angular.render(getAnnonseString2(), "Sorlandsportalen"));
 	}
 
@@ -47,7 +50,6 @@ public class Application extends Controller {
 	}
 
 	public static Result addAdvertisement() {
-
 		return ok(addAdvertisement.render("Legg til"));
 	}
 
@@ -56,55 +58,38 @@ public class Application extends Controller {
 		String test = getJson("sorlandsportalen.no/public/webservice/alle_annonser.php");
 		return ok(angular.render(test, "Sorlandsportalen"));
 	}
-
-	@Transactional
-	public static Result uploadData() {
-
-		ArrayList<String> input = new ArrayList<String>();
-		ArrayList<String> inputValue = new ArrayList<String>();
-
+	
+	public static Result uploadData() throws IOException, InterruptedException {	
 		DynamicForm dynamicForm = form().bindFromRequest();
-		input.add("info");
-		input.add("typeId");
-		input.add("varighet");
-		input.add("linjeId");
-		input.add("trinnId");
-		input.add("url");
-		input.add("kontaktNavn");
-		input.add("kontaktEmail");
-		input.add("frist");
-		input.add("prioritet");
-		input.add("sted");
-		input.add("bedriftsNavn");
-		input.add("tittel");
-
-		for (String i : input) {
-			if (dynamicForm.get(i) == null || dynamicForm.get(i) == "") {
-				if (i == "prioritet") {
-					inputValue.add("false");
-				} else {
-					inputValue.add("");
-				}
-			}
-
-			else {
-				if (i == "prioritet") {
-					inputValue.add("true");
-				} else {
-					inputValue.add(dynamicForm.get(i));
-				}
-			}
+		String tittel = dynamicForm.get("tittel");
+		String sted = dynamicForm.get("sted");
+		String typeId = dynamicForm.get("typeId");
+		String kontaktNavn = dynamicForm.get("kontaktNavn");
+		String kontaktEmail = dynamicForm.get("kontaktEmail");
+		String bedriftsNavn = dynamicForm.get("bedriftsNavn");
+		String linjeId = dynamicForm.get("linjeId");
+		String trinnId = dynamicForm.get("trinnId");
+		String url = dynamicForm.get("url");
+		String info = dynamicForm.get("info");
+		String frist = dynamicForm.get("frist");
+		String varighet = dynamicForm.get("varighet");
+		
+		String AnnonseUrl = "http://sorlandsportalen.no/public/webservice/insert_annonse.php?info="+info+"&varighet="+varighet+"&url="+url+"&kontaktNavn="+kontaktNavn+"&kontaktEmail="+kontaktEmail+"&frist="+frist+"&sted="+sted+"&bedriftsNavn="+bedriftsNavn+"&tittel="+tittel+"";
+		String KoblingUrl = "http://sorlandsportalen.no/public/webservice/insert_kobling.php?type="+typeId+"&trinn="+trinnId+"&linje="+linjeId+"";
+		ArrayList<String> urls = new ArrayList<String>();
+		urls.add(AnnonseUrl);urls.add(KoblingUrl);
+		
+		for(String i : urls){
+			URL yahoo = new URL(i);
+	        URLConnection yc = yahoo.openConnection();
+	        BufferedReader in = new BufferedReader(
+	                                new InputStreamReader(
+	                                yc.getInputStream()));
+	        Thread.sleep(100);
+	        in.close();
 		}
-
-		Databasen db = new Databasen();
-		db.insert("annonse", inputValue.get(0), Integer.parseInt(inputValue.get(1)),
-				Integer.parseInt(inputValue.get(2)), Integer.parseInt(inputValue.get(3)),
-				Integer.parseInt(inputValue.get(4)), inputValue.get(5), inputValue.get(6),
-				inputValue.get(7), inputValue.get(8), inputValue.get(9), inputValue.get(10),
-				inputValue.get(11), inputValue.get(12));
-
-		return ok(index.render("Bindeleddet"));
-
+		
+		return redirect("/");
 	}
 
 	public static String getJson(String link) {

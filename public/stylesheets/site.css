@@ -11,6 +11,12 @@ body {
 	font-size:200%;
 }
 
+.jumbotron-special{
+    background-color:#f39c12;
+    padding:0px;
+    margin:0px;
+    border-radius:0px; 
+}
 
 .wrapper{width:30%;margin:0 auto;text-align:left;}
 
