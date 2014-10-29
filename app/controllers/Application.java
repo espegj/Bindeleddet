@@ -2,25 +2,16 @@ package controllers;
 
 import static play.data.Form.form;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.net.*;
+import java.io.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
@@ -63,33 +54,133 @@ public class Application extends Controller {
 		DynamicForm dynamicForm = form().bindFromRequest();
 		String tittel = dynamicForm.get("tittel");
 		String sted = dynamicForm.get("sted");
-		String typeId = dynamicForm.get("typeId");
 		String kontaktNavn = dynamicForm.get("kontaktNavn");
 		String kontaktEmail = dynamicForm.get("kontaktEmail");
 		String bedriftsNavn = dynamicForm.get("bedriftsNavn");
-		String linjeId = dynamicForm.get("linjeId");
-		String trinnId = dynamicForm.get("trinnId");
 		String url = dynamicForm.get("url");
 		String info = dynamicForm.get("info");
 		String frist = dynamicForm.get("frist");
 		String varighet = dynamicForm.get("varighet");
 		
-		String AnnonseUrl = "http://sorlandsportalen.no/public/webservice/insert_annonse.php?info="+info+"&varighet="+varighet+"&url="+url+"&kontaktNavn="+kontaktNavn+"&kontaktEmail="+kontaktEmail+"&frist="+frist+"&sted="+sted+"&bedriftsNavn="+bedriftsNavn+"&tittel="+tittel+"";
-		String KoblingUrl = "http://sorlandsportalen.no/public/webservice/insert_kobling.php?type="+typeId+"&trinn="+trinnId+"&linje="+linjeId+"";
-		ArrayList<String> urls = new ArrayList<String>();
-		urls.add(AnnonseUrl);urls.add(KoblingUrl);
+		String klasse1 = dynamicForm.get("1.klasse");
+		String klasse2 = dynamicForm.get("2.klasse");
+		String klasse3 = dynamicForm.get("3.klasse");
+		String klasse4 = dynamicForm.get("4.klasse");
+		String klasse5 = dynamicForm.get("5.klasse");
 		
-		for(String i : urls){
-			URL yahoo = new URL(i);
+		String Sommerjobb = dynamicForm.get("Sommerjobb");
+		String Deltid = dynamicForm.get("Deltid");
+		String Fulltid = dynamicForm.get("Fulltid");
+		
+		String Mekatronikk = dynamicForm.get("Mekatronikk");
+		String Data = dynamicForm.get("Data");
+		String Fornybar = dynamicForm.get("Fornybar");
+		String Byggdesign = dynamicForm.get("Byggdesign");
+		String Elektronikk = dynamicForm.get("Elektronikk");
+		String Indok = dynamicForm.get("Indok");
+		
+		ArrayList<String> trinn = new ArrayList<String>();
+		ArrayList<String> linje = new ArrayList<String>();
+		ArrayList<String> jobb = new ArrayList<String>();
+		
+		if(klasse1 != null){
+			trinn.add("1");
+		}
+		if(klasse2 != null && !klasse2.isEmpty()){
+			trinn.add("2");
+		}
+		if(klasse3 != null && !klasse3.isEmpty()){
+			trinn.add("3");
+		}
+		if(klasse4 != null && !klasse4.isEmpty()){
+			trinn.add("4");
+		}
+		if(klasse5 != null && !klasse5.isEmpty()){
+			trinn.add("5");
+		}
+		if(Sommerjobb != null && !Sommerjobb.isEmpty()){
+			jobb.add("2");
+		}
+		if(Deltid != null && !Deltid.isEmpty()){
+			jobb.add("3");
+		}
+		if(Fulltid != null && !Fulltid.isEmpty()){
+			jobb.add("1");
+		}
+		if(Mekatronikk != null){
+			linje.add("4");
+		}
+		if(Data != null){
+			linje.add("1");
+		}
+		if(Fornybar != null && !Fornybar.isEmpty()){
+			linje.add("3");
+		}
+		if(Byggdesign != null && !Byggdesign.isEmpty()){
+			linje.add("5");
+		}
+		if(Elektronikk != null && !Elektronikk.isEmpty()){
+			linje.add("7");
+		}
+		if(Indok != null && !Indok.isEmpty()){
+			linje.add("6");
+		}
+	
+			String AnnonseUrl = "http://sorlandsportalen.no/public/webservice/insert_annonse.php?info="+info+"&tittel="+tittel+"&bedriftsNavn="+bedriftsNavn+"&kontaktEmail="+kontaktEmail+"&varighet="+varighet+"&frist="+frist+"&url="+url+"&sted="+sted+"&kontaktNavn="+kontaktNavn+"";			
+			
+			
+			URL yahoo = new URL(AnnonseUrl);
 	        URLConnection yc = yahoo.openConnection();
 	        BufferedReader in = new BufferedReader(
 	                                new InputStreamReader(
 	                                yc.getInputStream()));
+	       
 	        Thread.sleep(100);
 	        in.close();
-		}
+		
+
+			String typeId = jobb.get(0);
+			String trinnId = trinn.get(0);
+			String linjeId = linje.get(0);
+	        
+	        int t = Math.max(trinn.size(), Math.max(linje.size(),jobb.size()));	 
+			for (int i=0;i<t;i++){
+				try {
+					typeId=jobb.get(i);
+				} catch (Exception e) {
+					
+				}
+				
+				try {
+					trinnId=trinn.get(i);
+				} catch (Exception e) {
+					
+				}
+				
+				try {
+					linjeId=linje.get(i);
+				} catch (Exception e) {
+					
+				}
+				
+				String KoblingUrl = "http://sorlandsportalen.no/public/webservice/insert_kobling.php?type="+typeId+"&trinn="+trinnId+"&linje="+linjeId+"";
+				
+				URL yahoo2 = new URL(KoblingUrl);
+		        URLConnection yc2 = yahoo2.openConnection();
+		        BufferedReader in2 = new BufferedReader(
+		                                new InputStreamReader(
+		                                yc2.getInputStream()));
+		        Thread.sleep(100);
+		        in2.close();
+			}
+	        
+	        
 		
 		return redirect("/");
+	}
+	
+	public static void runPHP(String link) throws IOException{
+		 
 	}
 
 	public static String getJson(String link) {
