@@ -51,7 +51,7 @@ $scope.getData = function (phones, query) {
 <div class="col-md-3"></div>
 <div class="col-sm-4 col-md-2">
 <select ng-change="getData(phone, query2)" ng-model="query2" class="form-control" placeholder="Årstrinn">
-    <option value="" selected disabled>Årstrinn</option>
+    <option value="">Årstrinn</option>
     <option>1.Klasse</option>
     <option>2.Klasse</option>
     <option>3.Klasse</option>
@@ -62,7 +62,7 @@ $scope.getData = function (phones, query) {
 
 <div class="col-sm-4 col-md-2">
 <select ng-change="getData(phone, query2)" ng-model="query3" class="form-control" title="Jobbtype">
-	<option value="" selected disabled>Jobbtype</option>
+	<option value="">Jobbtype</option>
     <option>Fulltid</option>
     <option>Deltid</option>
     <option>Sommerjobb</option>
@@ -71,7 +71,7 @@ $scope.getData = function (phones, query) {
 
 <div class="col-sm-4 col-md-2">
 <select ng-change="getData(phone, query2)" ng-model="query4" class="form-control" title="Linje">
-    <option value="" selected disabled>Linje</option>
+    <option value="">Linje</option>
     <option>Data</option>
     <option>Byggdesign</option>
     <option>Mekatronikk</option>
@@ -84,14 +84,12 @@ $scope.getData = function (phones, query) {
 
 <br>
 
-
 <div class="row">
  <div ng-repeat="phone in phones | filter:query | orderBy:orderProp | filter:query2 | filter:query3 | filter:query4" style="float:left">
   
   <div class="col-md-12">
- 
-
- <h2><a class="white" href="/detail?id={{phone.annonseId}}">{{phone.tittel}}</a></h2>
+ <div class="jumbotron clickablebox black2">
+ <h3><a class="white" href="/detail?id={{phone.annonseId}}">{{phone.tittel}}</a></h3>
  <table class="table table-condensed white" >
 					<tbody>
 						<tr>
@@ -104,6 +102,7 @@ $scope.getData = function (phones, query) {
 						</tr>
 					</tbody>
 				</table>
+				</div>
 </div> 
  </div>
 </div>

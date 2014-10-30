@@ -42,6 +42,11 @@ body {
    	background: rgba(0, 0, 0, 0.6);
 }
 
+.black2{
+	background: rgb(0, 0, 0); 
+   	background: rgba(0, 0, 0, 0.2);
+}
+
 .white{
 	color: #ffffff;
 }
@@ -66,3 +71,9 @@ a:hover {
  .avenir{
 	font-family: avenir;
  }
+ 
+ .clickablebox  { 
+     margin: 15px;
+    
+     padding: 5px;   
+}
